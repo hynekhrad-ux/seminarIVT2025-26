@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7fbb7e151e4d7bd4c9a0c4baa742ccf9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - particlePlace: {instanceID: 0}
+  - muzlleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+  - firePoint: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
