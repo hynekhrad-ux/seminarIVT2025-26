@@ -7,5 +7,7 @@ pro lidi majici unity editor tak staci pouze stahnout tento repozitar a tam ho o
 
 melo by to byt jest funkcni
 
+ve slozce "finalProduct" je exe file
+
 zde je odkaz na psanou cast seminarni prace kde nejspise je vse potrebneho pro pochopeni toho co nejde pochopit z komentaru v samotnem skriptu:
 https://docs.google.com/document/d/1F_LVOc8m-X0TPrJuPwy3_TTBEofCZXf9Rf-mIsD0HPc
