@@ -198,7 +198,6 @@ GameObject:
   - component: {fileID: 5212926227364594801}
   - component: {fileID: -8456742040940779610}
   - component: {fileID: 98981402481663941}
-  - component: {fileID: -5530370576598149898}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -372,12 +371,9 @@ MonoBehaviour:
   TextAmmo: {fileID: 0}
   gunAnimator0: {fileID: 2140390684166520904}
   gunAnimator1: {fileID: 1842549533410493779}
-  headTransform: {fileID: 8218297436304687700}
-  recoilHandler: {fileID: 4396075864716585791}
   gun0: {fileID: 7291708239882141941}
   gun1: {fileID: 9104709712410673486}
   CurrentGunID: 0
-  realoadTimeSimpleID1: 2.5
 --- !u!114 &-7558579209016687398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,18 +431,6 @@ MonoBehaviour:
   gunAnimator1: {fileID: 0}
   timestampReload: 0
   canReload: 1
---- !u!114 &-5530370576598149898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6974085558097680644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cc04907cc1e5de4abdc9b17bdeb0b2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!1 &7028230134688523365
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,6 +679,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 532279782638645426, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
     - {fileID: 4959521495304128210, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
+    - {fileID: 908570510706074942, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -747,6 +732,7 @@ MonoBehaviour:
   currentAmmoID0: 9
   reloadTimeSimpleID0: 1.66
   reloadTimeZeroID0: 2
+  gameManagerSCR: {fileID: 0}
 --- !u!1001 &9104472297182348614
 PrefabInstance:
   m_ObjectHideFlags: 0

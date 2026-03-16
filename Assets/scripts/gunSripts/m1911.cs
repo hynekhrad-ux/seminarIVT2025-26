@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class m1911 : MonoBehaviour
 {
+    
     public Transform particlePlace;
     public GameObject muzlleFlash;
     public Transform firePoint;
@@ -43,7 +44,6 @@ public class m1911 : MonoBehaviour
        
 
         currentAmmoID0--;
-        playerReloadingSCR.canReload = true;
         playerShootingSCR.canShootID0 = false;
         fireRateTimeStamp  = Time.time + fireRateID0;
         gunAnimator0.SetTrigger("Fire");
