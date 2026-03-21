@@ -119,17 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &115704146 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5470437035645072071, guid: 8910d5da487d11c4886d12ff73ce5ce6, type: 3}
-  m_PrefabInstance: {fileID: 1634379068659867095}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1195,7 +1184,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e878a24ad4b470468a5eab462508cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: {fileID: 115704146}
   roundNumberTXT: {fileID: 1045298413}
   gunID0UpgradeCostTXT: {fileID: 1247170037}
   gunID1UpgradeCostTXT: {fileID: 1042168786}
@@ -2394,6 +2382,10 @@ PrefabInstance:
     - target: {fileID: 6974085558097680644, guid: 8910d5da487d11c4886d12ff73ce5ce6, type: 3}
       propertyPath: m_Name
       value: player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6974085558097680644, guid: 8910d5da487d11c4886d12ff73ce5ce6, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7108137654983880006, guid: 8910d5da487d11c4886d12ff73ce5ce6, type: 3}
       propertyPath: m_LocalPosition.y
