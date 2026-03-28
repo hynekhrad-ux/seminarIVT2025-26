@@ -8,12 +8,27 @@ public class enemyShooting : MonoBehaviour
     public GameObject muzlleFlash;
     public Transform firePoint;
 
+    public bool readyToShoot;
+
     private float fireRateEnemy = 0.3f;
     private float fireRateTimeStampEnemy;
-    private float damageEnemy = 10f;
+    private int damageOfEnemy = 10;
+
+    public Animator enemyAnimator;
+
+    enemySCR enemySCR;
+
+    void Awake()
+    {
+        enemySCR = GetComponent<enemySCR>();
+    }
 
     void enemyShoot()
     {
+        enemySCR.enemyAmmo -= 1;
+
+        enemyAnimator.SetTrigger("Fire");
+        
         Vector3 fireDir =  Quaternion.Euler(Random.Range(-10, 10), Random.Range(-10, 10), 0) * firePoint.forward;
 
         RaycastHit hit;
@@ -27,18 +42,37 @@ public class enemyShooting : MonoBehaviour
             Destroy(particleMuzlleFlash, 1);
 
             fireRateTimeStampEnemy = Time.time + fireRateEnemy;
-            Debug.Log("Hit: " + hit.collider.name);
+
+            if (hit.collider.name == "player")
+            {
+                //player.damagePlayer(damageOfEnemy);
+            }
+            else if (hit.collider.name == "playerHead")
+            {
+                //player.damagePlayer(damageOfEnemy * 2);
+            }
+
+            
         }
     }
     private void Update()
     {
+        if (gameManager.gameEnd)
+        {
+            return;
+        }
+        
         RaycastHit hit;
         if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, 15))
         {
             
             if (hit.collider.name == "player" && fireRateTimeStampEnemy < Time.time)
             {
-                enemyShoot();
+                if (enemySCR.enemyAmmo > 0)
+                {
+                    enemyShoot();    
+                }
+                
             }
 
         }

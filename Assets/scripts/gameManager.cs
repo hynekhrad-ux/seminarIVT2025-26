@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class gameManager : MonoBehaviour
 {
-    int[,] statusOfArenaTiles = new int[100, 100];
+
     //odkay na gameObject textu, potreba priradit v inspectoru
 
     //TXT cislo kola
@@ -62,13 +62,15 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         
-        //odkaz na jinou funkci
-        SpawnArena();
     }
 
     //vse co je uvnitr Update() je volano kazdy frame hry od spusteni
     private void Update()
     {
+        if (gameEnd)
+        {
+            end();
+        }
         //nastaveni soucasne ceny vylepseni
 
         //m1911
@@ -99,13 +101,14 @@ public class gameManager : MonoBehaviour
 
     public void SpawnArena()
     { 
+        player.playerHealth = 100;
         //dimenze areny rozdeleny do 2D pole 6x6 pro generaci prekazek
         for (int x = 5; x < 99; x +=10)
         {
             for (int z = 5; z < 99; z+=10)
             {
                 //pseudonahodne cislo
-                randomNum = UnityEngine.Random.Range(0, 6);
+                randomNum = UnityEngine.Random.Range(0,4);
 
                 //pseudonahodne cislo pouzite pro generaci areny (kdyz 0 tak sloup atd.)
                 //Instantiate() funkce unity; urcene pro tvorbu objektu ve scene behem hry; parametry jsou GameObject, pozice, rotace a zde jeste navic pouzivam "arenaRoot" ktery je prirazen jako parent 
@@ -113,24 +116,20 @@ public class gameManager : MonoBehaviour
                 if (randomNum == 0)
                 {
                     Instantiate(pillar1x10, new Vector3(x, 5, z ), Quaternion.identity, arenaRoot);
-                    statusOfArenaTiles[x, z] = 1;
+                    
                 }
                 else if (randomNum == 1)
                 {
                     Instantiate(wall3x2, new Vector3(x , 1.5f, z ), Quaternion.identity, arenaRoot);
-                    statusOfArenaTiles[x-1, z] = 1;
-                    statusOfArenaTiles[x, z] = 1;
-                    statusOfArenaTiles[x+1, z] = 1;
+                    
                 }
                 else if (randomNum == 2)
                 {
                     Instantiate(wall2x3, new Vector3(x , 1.5f, z ), Quaternion.identity, arenaRoot);
-                    statusOfArenaTiles[x, z-1] = 1;
-                    statusOfArenaTiles[x, z] = 1;
-                    statusOfArenaTiles[x, z+1] = 1;
+                    
 
                 }
-                else if (randomNum <= 4)
+                else if (randomNum == 3)
                 {
                     Instantiate(enyPrefab, new Vector3(x , 1, z), Quaternion.identity, arenaRoot);
                     //zvetseni promeny trakujici pocet nepratel

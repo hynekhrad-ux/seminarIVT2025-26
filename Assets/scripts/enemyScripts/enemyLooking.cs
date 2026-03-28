@@ -16,6 +16,6 @@ public class enemyLooking : MonoBehaviour
         transform.LookAt(new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z));
         firePointTransform.transform.LookAt(playerTransform);
 
-        gunTranform.rotation = Quaternion.LookRotation(playerTransform.position - gunTranform.position) * Quaternion.Euler(0, 180, 0);
+        gunTranform.rotation = Quaternion.LookRotation(playerTransform.position - gunTranform.position) ;
     }
 }

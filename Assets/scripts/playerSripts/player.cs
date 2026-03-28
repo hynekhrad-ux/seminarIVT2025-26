@@ -30,6 +30,8 @@ public class player : MonoBehaviour
     //ID soucasne zbrane
     public int CurrentGunID = 0;
 
+    public static int playerHealth = 100;
+
     //promene pro ulozeni reference ostatnich scriptu
     m1911 m1911SCR;
     playerReloading playerReloadingSCR;
@@ -137,6 +139,17 @@ public class player : MonoBehaviour
             gunAnimator1.enabled = true;
             //update textu munice
             TextAmmo.text = M4SCR.currentAmmoID1.ToString() + "/" + M4SCR.maxAmmoID1.ToString();
+        }
+    }
+    
+    public static void damagePlayer(int damage)
+    {
+        playerHealth -= damage;
+        Debug.Log(playerHealth);
+
+        if (playerHealth <= 0)
+        {
+            gameManager.gameEnd =true;
         }
     }
 }

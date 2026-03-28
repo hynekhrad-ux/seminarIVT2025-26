@@ -6,7 +6,9 @@ public class enemySCR : MonoBehaviour
     //promena pro ukladani zivotu; zvlast pro kazdy gameObject s timto scriptem prirazenym v inspectoru
     public int enyHealth;
 
-    //globalni promena; kontrola zda posledni zasah do nepritele byl do hlavy; pro vypocet skore
+    public int enemyAmmo = 30;
+
+    //staticka promena; kontrola zda posledni zasah do nepritele byl do hlavy; pro vypocet skore
     public static bool wasLastHitHeadshot;
 
     //funkce Awake() volana driv nez Start(); zde umoznuje nastaveni zivotu nepratelu drive nez se stihne nastavit gameManager.roundNumber; take volano ve stejnou chvili jako Instantiate() pro nepratele, ktery byl zavolan v gameManager.SpawnArena()
