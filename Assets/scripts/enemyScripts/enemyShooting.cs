@@ -45,11 +45,11 @@ public class enemyShooting : MonoBehaviour
 
             if (hit.collider.name == "player")
             {
-                //player.damagePlayer(damageOfEnemy);
+                player.damagePlayer(damageOfEnemy);
             }
             else if (hit.collider.name == "playerHead")
             {
-                //player.damagePlayer(damageOfEnemy * 2);
+                player.damagePlayer(damageOfEnemy * 2);
             }
 
             
