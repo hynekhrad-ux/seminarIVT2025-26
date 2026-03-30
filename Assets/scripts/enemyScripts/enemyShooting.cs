@@ -18,6 +18,7 @@ public class enemyShooting : MonoBehaviour
 
     enemySCR enemySCR;
 
+    public AudioSource enemyAudio;
     void Awake()
     {
         enemySCR = GetComponent<enemySCR>();
@@ -25,11 +26,13 @@ public class enemyShooting : MonoBehaviour
 
     void enemyShoot()
     {
+        enemyAudio.Play();
+
         enemySCR.enemyAmmo -= 1;
 
         enemyAnimator.SetTrigger("Fire");
         
-        Vector3 fireDir =  Quaternion.Euler(Random.Range(-10, 10), Random.Range(-10, 10), 0) * firePoint.forward;
+        Vector3 fireDir =  Quaternion.Euler(Random.Range(-5, 5), Random.Range(-5, 5), 0) * firePoint.forward;
 
         RaycastHit hit;
         if (Physics.Raycast(firePoint.position, fireDir, out hit))
@@ -45,11 +48,11 @@ public class enemyShooting : MonoBehaviour
 
             if (hit.collider.name == "player")
             {
-                //player.damagePlayer(damageOfEnemy);
+                player.damagePlayer(damageOfEnemy);
             }
             else if (hit.collider.name == "playerHead")
             {
-                //player.damagePlayer(damageOfEnemy * 2);
+                player.damagePlayer(damageOfEnemy * 2);
             }
 
             
@@ -63,7 +66,7 @@ public class enemyShooting : MonoBehaviour
         }
         
         RaycastHit hit;
-        if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, 15))
+        if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, 30))
         {
             
             if (hit.collider.name == "player" && fireRateTimeStampEnemy < Time.time)

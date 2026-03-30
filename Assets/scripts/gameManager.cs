@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -37,6 +38,8 @@ public class gameManager : MonoBehaviour
     public GameObject wall2x3;
     //sloup
     public GameObject pillar1x10;
+
+    public NavMeshSurface meshSurface;
 
     //prazdny gameObject prirazeny v inspectoru pro jednodusi manipulaci s vygenerovanou arenou
     public Transform arenaRoot;
@@ -100,7 +103,8 @@ public class gameManager : MonoBehaviour
     }
 
     public void SpawnArena()
-    { 
+    {
+       
         player.playerHealth = 100;
         //dimenze areny rozdeleny do 2D pole 6x6 pro generaci prekazek
         for (int x = 5; x < 99; x +=10)
@@ -129,22 +133,24 @@ public class gameManager : MonoBehaviour
                     
 
                 }
-                else if (randomNum == 3)
+                else if (randomNum == 3 )
                 {
                     Instantiate(enyPrefab, new Vector3(x , 1, z), Quaternion.identity, arenaRoot);
                     //zvetseni promeny trakujici pocet nepratel
                     enyCount++;
                 }
             }
+            
         }
-
+        meshSurface.RemoveData();
+        meshSurface.BuildNavMesh();
         //zvetseni promeny trakujici cislo kola
         roundNumber++;
         //update textu zobrazujici cislo kola
         roundNumberTXT.text = "Round " + roundNumber;
         
         //nastaveni ciloveho casu do dokonceni kola
-        goalTime = Time.time + 60f;
+        goalTime = Time.time + 10000f;
     }
 
     public void DeleteArena()

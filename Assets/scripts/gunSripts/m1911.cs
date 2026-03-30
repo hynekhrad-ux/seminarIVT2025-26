@@ -23,8 +23,8 @@ public class m1911 : MonoBehaviour
     playerShooting playerShootingSCR;
     playerReloading playerReloadingSCR;
     public gameManager gameManagerSCR;
-    
 
+    public AudioSource m1911Audio;
     private void Awake()
     {
         playerShootingSCR = GetComponentInParent<playerShooting>();
@@ -41,7 +41,7 @@ public class m1911 : MonoBehaviour
         if (currentAmmoID0 <= 0)
             return;
 
-       
+       m1911Audio.Play();
 
         currentAmmoID0--;
         playerShootingSCR.canShootID0 = false;

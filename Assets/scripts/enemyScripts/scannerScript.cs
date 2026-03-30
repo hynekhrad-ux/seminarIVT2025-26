@@ -6,9 +6,12 @@ public class scannerScript : MonoBehaviour
 
     Transform playerTransform;
 
-    
+    LayerMask layerMask;
+
+
     private void Awake()
     {
+        layerMask = LayerMask.GetMask("Enemy");
         playerTransform = GameObject.FindWithTag("Player").transform;
     }
 
@@ -16,7 +19,7 @@ public class scannerScript : MonoBehaviour
     {
         
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, playerTransform.position - transform.position, out hit))
+        if (Physics.Raycast(transform.position, playerTransform.position - transform.position, out hit, 1000, layerMask))
         {
             
             if (hit.collider.name == "player")
