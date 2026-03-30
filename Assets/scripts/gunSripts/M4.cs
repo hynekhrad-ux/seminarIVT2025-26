@@ -22,6 +22,9 @@ public class M4 : MonoBehaviour
     playerShooting playerShootingSCR;
     playerReloading playerReloadingSCR;
     public gameManager gameManagerSCR;
+
+    public AudioSource M4PlayerAudio;
+
     private void Awake()
     {
         playerShootingSCR = GetComponentInParent<playerShooting>();
@@ -37,6 +40,7 @@ public class M4 : MonoBehaviour
             return;
 
         
+        M4PlayerAudio.Play();
 
         currentAmmoID1--;
         playerReloadingSCR.canReload = true;

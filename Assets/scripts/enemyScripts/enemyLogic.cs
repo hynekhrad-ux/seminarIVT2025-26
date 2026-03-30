@@ -25,9 +25,10 @@ public class enemyLogic : MonoBehaviour
     void Update()
     {
         RaycastHit hit;
-        if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, layerMask))
+        if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, 1000, layerMask))
         {
-            if(enemySCR.enemyAmmo <= 0)
+            
+            if (enemySCR.enemyAmmo <= 0)
             {
                 wantToShoot = false;
                 wantToTakeCover = true;
@@ -45,17 +46,18 @@ public class enemyLogic : MonoBehaviour
                 wantToTakeCover = true;
                 wantToReload = true;
             }
-
-            if (hit.distance < 15 && enemyShootingSCR.readyToShoot)
+            else if (hit.distance < 30 && enemyShootingSCR.readyToShoot)
             {
+                
                 wantToReload =false;
                 wantToTakeCover =false;
                 wantToShoot = true;
             }
             else
             {
+                
                 wantToShoot = false;
-                wantToReload = false;
+                
                 wantToTakeCover=true;
             }
         }  

@@ -1,108 +1,113 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class enemyMovement : MonoBehaviour
 {
     public bool readyToShoot;
     public GameObject scannerPrefab;
+
+    public Transform playerTransform;
+    public NavMeshAgent agent;
+
+    GameObject[] coverPos;
+    LayerMask layerMask;
+
+    enemyLogic enemyLogicSCR;
+    gameManager gameManagerSCR;
+
+    Transform currentCover = null;
+
+  
     
-    public Transform scannerRoot;
-    
-    scannerScript scannerScriptSCR;   
 
     void Awake()
     {
-        
+
+        playerTransform = GameObject.FindWithTag("Player").transform;
+        layerMask = LayerMask.GetMask("Enemy");
+        coverPos = GameObject.FindGameObjectsWithTag("coverPoint");
+        enemyLogicSCR = GetComponent<enemyLogic>();
+        gameManagerSCR = GetComponent<gameManager>();
     }
-    Transform takeCover()
+    void Update()
     {
-        for(int i = 0; i < 100; i++)
+
+        // If current cover is no longer valid, reset path
+        if (currentCover != null)
         {
-            var results = scannerSpawn(i,false);
-            if (results.Item1)
+            var coverScr = currentCover.GetComponent<coverScript>();
+            if (!coverScr.IsAvailable(gameObject) || HasLineOfSight(transform.position, playerTransform))
             {
-                return results.Item2;
+                agent.ResetPath();
+                currentCover = null;
             }
         }
-        return null;
-    }
-    Transform engagePlayer()
-    {
-        for(int i = 0; i < 100; i++)
+
+        // Pick a new cover if needed
+        if (enemyLogicSCR.wantToTakeCover && currentCover == null)
         {
-            var results = scannerSpawn(i,true);
-            if (results.Item1)
+            currentCover = FindCover();
+            if (currentCover != null)
             {
-                return results.Item2;
+                agent.SetDestination(currentCover.position);
             }
         }
-        return null;
     }
 
-    (bool,Transform) scannerSpawn(int depth, bool wantPlayer)
+
+
+    Transform FindCover()
     {
-        for (int x = -depth; x <= depth; x++)
+        float bestScore = float.MaxValue;
+        Transform bestCover = null;
+
+        foreach (var cover in coverPos)
         {
-            for (int z = -depth; z <= depth; z++)
+            var coverScr = cover.GetComponent<coverScript>();
+
+            // Skip covers already reserved by another enemy
+            if (!coverScr.IsAvailable(gameObject))
+                continue;
+
+            // Skip covers with line of sight
+            if (HasLineOfSight(cover.transform.position, playerTransform))
+                continue;
+
+            float distance = Vector3.Distance(transform.position, cover.transform.position);
+            if (distance < bestScore)
             {
-                if (x == 0 && z == 0)
-                {
-                    continue; 
-                }
-
-                Vector3 offset = new Vector3(x, 0, z) * 1; 
-                Vector3 pos = transform.position + offset;
-
-                
-
-                GameObject obj = Instantiate(scannerPrefab, pos, Quaternion.identity, scannerRoot);
-                
+                bestScore = distance;
+                bestCover = cover.transform;
             }
         }
-        if (wantPlayer)
-        {
-           foreach (Transform child in scannerRoot)
-            {
-                scannerScript script = child.GetComponent<scannerScript>();
-                
-                if (script.scan())
-                {
-                    for (int i = scannerRoot.childCount - 1; i >= 0; i--)
-                    {
-                        Destroy(scannerRoot.GetChild(i).gameObject);
-                    }
-                    return(true, child);
-                }
-                
-                    
-                
-            } 
-            
-        }
-        else if (!wantPlayer)
-        {
-            foreach (Transform child in scannerRoot)
-            {
-                scannerScript script = child.GetComponent<scannerScript>();
-                
-                if (!script.scan())
-                {
-                    for (int i = scannerRoot.childCount - 1; i >= 0; i--)
-                    {
-                        Destroy(scannerRoot.GetChild(i).gameObject);
-                    }
-                    return(true, child);
-                }
-                
-                    
-                
-            } 
-            
-        }
-        for (int i = scannerRoot.childCount - 1; i >= 0; i--)
-        {
-            Destroy(scannerRoot.GetChild(i).gameObject);
-        }
-        return(false, null);
-        
+
+        // Reserve the cover immediately
+        if (bestCover != null)
+            bestCover.GetComponent<coverScript>().TryReserve(gameObject);
+
+        return bestCover;
     }
+
+
+
+    bool HasLineOfSight(Vector3 from, Transform player)
+    {
+        Vector3 dir = (player.position - from);
+
+        if (Physics.Raycast(from, dir, out RaycastHit hit, 1000, ~layerMask))
+        {
+            if(hit.collider.gameObject.tag == "Player")
+            {
+                return true;
+            }
+            return false;
+        }
+
+        return false;
+    }
+
+
+
+
 }
